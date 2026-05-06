@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Miles Davis — 60 Albums in 60 Days</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f4ee;
+      --surface: #ffffff;
+      --text: #1a1814;
+      --text-secondary: #6b6560;
+      --text-tertiary: #a09b95;
+      --border: rgba(26,24,20,0.12);
+      --border-strong: rgba(26,24,20,0.22);
+      --accent: #1a1814;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ---- HEADER ---- */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .site-name {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .header-progress {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-track {
+      width: 120px;
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 0.6s ease;
+    }
+
+    .progress-text {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-kicker {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 6vw, 58px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      font-weight: 300;
+      line-height: 1.65;
+      max-width: 480px;
+    }
+
+    /* ---- POSTS ---- */
+    .posts-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .post {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+
+    .post-eyebrow {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 0.75rem;
+    }
+
+    .post-day-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    .post-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    .post-year {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      margin-left: auto;
+    }
+
+    .post-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .musicians {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 1.25rem;
+    }
+
+    .musician-chip {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      background: var(--surface);
+      white-space: nowrap;
+    }
+
+    .musician-chip.leader {
+      border-color: var(--border-strong);
+      color: var(--text);
+      font-style: italic;
+    }
+
+    .post-notes {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--text);
+      font-style: italic;
+      padding-left: 1.25rem;
+      border-left: 2px solid var(--border-strong);
+    }
+
+    /* ---- EMPTY ---- */
+    .empty {
+      padding: 5rem 0;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--text-tertiary);
+      font-size: 18px;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.08em;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      .posts-wrap { padding: 0 1.25rem 4rem; }
+      .header-inner { padding: 0 1.25rem; }
+      .progress-track { width: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="site-name">Miles / 60</span>
+      <div class="header-progress">
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-text" id="progress-text">0 / 60</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="hero-kicker">A personal listening project</p>
+      <h1 class="hero-title">Miles Davis,<br /><em>60 Albums<br />in 60 Days</em></h1>
+      <p class="hero-desc">Every studio album, in order, one per day. Notes and reactions written while the needle's still warm.</p>
+    </section>
+
+    <section class="posts-wrap" id="posts-wrap">
+      <p class="empty">Loading…</p>
+    </section>
+  </main>
+
+  <footer>
+    Miles Davis discography &nbsp;·&nbsp; All 60 studio albums &nbsp;·&nbsp; Updated daily
+  </footer>
+
+  <script>
+    async function loadPosts() {
+      const wrap = document.getElementById('posts-wrap');
+      try {
+        const res = await fetch('posts.json?' + Date.now());
+        if (!res.ok) throw new Error('not found');
+        const posts = await res.json();
+
+        document.getElementById('progress-fill').style.width = Math.round((posts.length / 60) * 100) + '%';
+        document.getElementById('progress-text').textContent = posts.length + ' / 60';
+
+        if (posts.length === 0) {
+          wrap.innerHTML = '<p class="empty">No entries yet — the first album awaits.</p>';
+          return;
+        }
+
+        const sorted = [...posts].sort((a, b) => b.day - a.day);
+        wrap.innerHTML = sorted.map((p, i) => `
+          <article class="post" style="animation-delay: ${i * 0.07}s">
+            <div class="post-eyebrow">
+              <span class="post-day-badge">Day ${p.day}</span>
+              <span class="post-date">${p.date || ''}</span>
+              ${p.year ? `<span class="post-year">${p.year}</span>` : ''}
+            </div>
+            <h2 class="post-title">${esc(p.title)}</h2>
+            ${p.musicians && p.musicians.length ? `
+              <div class="musicians">
+                <span class="musician-chip leader">Miles Davis</span>
+                ${p.musicians.map(m => `<span class="musician-chip">${esc(m)}</span>`).join('')}
+              </div>` : ''}
+            ${p.notes ? `<p class="post-notes">${esc(p.notes)}</p>` : ''}
+          </article>
+        `).join('');
+      } catch(e) {
+        wrap.innerHTML = '<p class="empty">Could not load posts. Make sure posts.json is in the same folder.</p>';
+      }
+    }
+
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    loadPosts();
+  </script>
+</body>
+</html>

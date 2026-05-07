@@ -268,6 +268,10 @@
       <p class="hero-desc">60 studio albums recorded over 40 years. Enjoyed in order, one per day. Quick takes delivered while the wax is still warm.</p>
     </section>
 
+    <div id="up-next-banner" style="display:none; max-width:760px; margin: 0 auto; padding: 0.85rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface);">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-tertiary);" id="up-next-text"></span>
+    </div>
+
     <section class="posts-wrap" id="posts-wrap">
       <p class="empty">Loading…</p>
     </section>
@@ -278,6 +282,72 @@
   </footer>
 
   <script>
+    const ALL_ALBUMS = [
+      { title: "The New Sounds", year: 1951 },
+      { title: "Young Man with a Horn", year: 1953 },
+      { title: "Blue Period", year: 1953 },
+      { title: "The Compositions of Al Cohn", year: 1953 },
+      { title: "Miles Davis Volume 2", year: 1953 },
+      { title: "Miles Davis, Volume 3", year: 1954 },
+      { title: "Miles Davis Quartet", year: 1954 },
+      { title: "Miles Davis All Star Sextet", year: 1954 },
+      { title: "Miles Davis Quintet", year: 1954 },
+      { title: "Miles Davis with Sonny Rollins", year: 1954 },
+      { title: "Miles Davis All Stars, Volume 1", year: 1955 },
+      { title: "Miles Davis All Stars, Volume 2", year: 1955 },
+      { title: "The Musings of Miles", year: 1955 },
+      { title: "Blue Moods", year: 1955 },
+      { title: "Miles: The New Miles Davis Quintet", year: 1956 },
+      { title: "Quintet / Sextet", year: 1956 },
+      { title: "Collectors' Items", year: 1956 },
+      { title: "Cookin'", year: 1957 },
+      { title: "Birth of the Cool", year: 1957 },
+      { title: "'Round About Midnight", year: 1957 },
+      { title: "Miles Ahead", year: 1957 },
+      { title: "Relaxin'", year: 1958 },
+      { title: "Milestones", year: 1958 },
+      { title: "Jazz Track", year: 1959 },
+      { title: "Porgy and Bess", year: 1959 },
+      { title: "Kind of Blue", year: 1959 },
+      { title: "Workin'", year: 1960 },
+      { title: "Sketches of Spain", year: 1960 },
+      { title: "Steamin'", year: 1961 },
+      { title: "Someday My Prince Will Come", year: 1961 },
+      { title: "Seven Steps to Heaven", year: 1963 },
+      { title: "Quiet Nights", year: 1963 },
+      { title: "E.S.P.", year: 1965 },
+      { title: "Miles Smiles", year: 1967 },
+      { title: "Sorcerer", year: 1967 },
+      { title: "Nefertiti", year: 1968 },
+      { title: "Miles in the Sky", year: 1968 },
+      { title: "Filles de Kilimanjaro", year: 1968 },
+      { title: "In a Silent Way", year: 1969 },
+      { title: "Bitches Brew", year: 1970 },
+      { title: "Jack Johnson", year: 1971 },
+      { title: "Live-Evil", year: 1971 },
+      { title: "On the Corner", year: 1972 },
+      { title: "Big Fun", year: 1974 },
+      { title: "Get Up with It", year: 1974 },
+      { title: "Water Babies", year: 1976 },
+      { title: "The Man with the Horn", year: 1981 },
+      { title: "Star People", year: 1983 },
+      { title: "Decoy", year: 1984 },
+      { title: "You're Under Arrest", year: 1985 },
+      { title: "Tutu", year: 1986 },
+      { title: "Amandla", year: 1989 },
+      { title: "Aura", year: 1989 },
+      { title: "Doo-Bop", year: 1992 },
+      { title: "Rubberband", year: 2019 },
+    ];
+
+    function renderUpNext(count) {
+      const banner = document.getElementById('up-next-banner');
+      if (count >= ALL_ALBUMS.length) { banner.style.display = 'none'; return; }
+      const next = ALL_ALBUMS[count];
+      document.getElementById('up-next-text').textContent = `Up next: ${next.title} (${next.year})`;
+      banner.style.display = 'block';
+    }
+
     async function loadPosts() {
       const wrap = document.getElementById('posts-wrap');
       try {
@@ -287,6 +357,7 @@
 
         document.getElementById('progress-fill').style.width = Math.round((posts.length / 60) * 100) + '%';
         document.getElementById('progress-text').textContent = posts.length + ' / 60';
+        renderUpNext(posts.length);
 
         if (posts.length === 0) {
           wrap.innerHTML = '<p class="empty">No entries yet — the first album awaits.</p>';

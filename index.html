@@ -357,9 +357,10 @@
         if (!res.ok) throw new Error('not found');
         const posts = await res.json();
 
-        document.getElementById('progress-fill').style.width = Math.round((posts.length / 60) * 100) + '%';
-        document.getElementById('progress-text').textContent = posts.length + ' / 60';
-        renderUpNext(posts.length);
+        const mainPosts = posts.filter(p => Number.isInteger(Number(p.day)));
+        document.getElementById('progress-fill').style.width = Math.round((mainPosts.length / 60) * 100) + '%';
+        document.getElementById('progress-text').textContent = mainPosts.length + ' / 60';
+        renderUpNext(mainPosts.length);
 
         if (posts.length === 0) {
           wrap.innerHTML = '<p class="empty">No entries yet — the first album awaits.</p>';
